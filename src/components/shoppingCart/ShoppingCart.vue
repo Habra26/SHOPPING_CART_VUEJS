@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+import { shoppingCartStore } from '@/stores/shoppingCart';
+</script>
 
 <template>
   <h2 class="text-xl font-bold mb-4">Votre Panier</h2>
