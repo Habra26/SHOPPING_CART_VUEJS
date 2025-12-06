@@ -26,8 +26,8 @@ import { shoppingCartStore } from "@/stores/shoppingCart";
           <input
             type="number"
             class="form-input mt-1 block w-16 text-center rounded text-gray-700 border-gray-300 border"
-            value="1"
-            min="0"
+            :value="item.qty"
+            @input="shoppingCartStore.updateItemQty(item.id, $event.target.value)"
           />
           <button class="ml-2 text-red-500 hover:text-red-700">
             <i class="fas fa-times"></i>
