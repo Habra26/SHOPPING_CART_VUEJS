@@ -1,4 +1,5 @@
-import { reactive, computed, ref } from "vue";
+import { reactive, computed, ref, watch } from "vue";
+import DB from "@/services/DB";
 
 const cart = reactive([]);
 
@@ -16,11 +17,12 @@ const updateItemQty = (id, qty) => {
   const index = cart.findIndex((item) => item.id === id);
   if (index === -1) {
     return;
+  } else {
+    const q = Number(qty);
+    const newQty = q > 0 ? q : 1;
+    const updatedQty = { ...cart[index], qty: newQty };
+    cart.splice(index, 1, updatedQty);
   }
-  const q = Number(qty);
-  const newQty = q > 0 ? q : 1;
-  const updatedItem = { ...cart[index], qty: newQty };
-  cart.splice(index, 1, updatedItem);
 };
 
 const deleteOneById = (id) => {
@@ -36,13 +38,28 @@ const totalHTVA = computed(() =>
   }, 0)
 );
 
-const tva = computed(() => totalHTVA.value * 0.20);
+const tva = computed(() => totalHTVA.value * 0.2);
 
 const shipping = ref(0);
 
-const totalGeneral = computed(() =>
-  totalHTVA.value + tva.value + shipping.value
+const totalGeneral = computed(
+  () => totalHTVA.value + tva.value + shipping.value
 );
+
+const clear = () => {
+  if (shipping.value != 0) {
+    cart.splice(0, cart.length);
+    shipping.value = 0;
+  }
+};
+
+watch(cart,()=>DB.updateLocalStorage(cart),{deep:true});
+
+const init = () => {
+  cart.splice(
+    0,cart.length, ...(JSON.parse(localStorage.getItem('cartItems')) || [])
+  );
+};
 
 export const shoppingCartStore = reactive({
   cart,
@@ -53,4 +70,6 @@ export const shoppingCartStore = reactive({
   tva,
   shipping,
   totalGeneral,
+  clear,
+  init,
 });

@@ -1,6 +1,12 @@
 <script setup>
 import { shoppingCartStore } from "@/stores/shoppingCart";
+import { onMounted } from "vue";
+
+onMounted(() => {
+  shoppingCartStore.init();
+});
 </script>
+
 
 <template>
   <h2 class="text-xl font-bold mb-4">Votre Panier</h2>
@@ -70,6 +76,7 @@ import { shoppingCartStore } from "@/stores/shoppingCart";
         </div>
         <button
           class="mt-4 w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cart-btn"
+          @click="shoppingCartStore.clear()"
         >
           Procéder au paiement
         </button>
