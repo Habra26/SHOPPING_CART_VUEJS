@@ -1,4 +1,4 @@
-import { reactive } from "vue";
+import { reactive, computed } from "vue";
 
 const cart = reactive([]);
 
@@ -30,9 +30,16 @@ const deleteOneById = (id) => {
   );
 };
 
+const totalHTVA = computed(() =>
+  cart.reduce((total, item) => {
+    return total + item.price * item.qty;
+  }, 0)
+);
+
 export const shoppingCartStore = reactive({
   cart,
   addItemToCart,
   updateItemQty,
   deleteOneById,
+  totalHTVA,
 });

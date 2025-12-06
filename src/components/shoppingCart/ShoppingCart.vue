@@ -47,7 +47,7 @@ import { shoppingCartStore } from "@/stores/shoppingCart";
       <div class="p-6">
         <div class="flex justify-between mb-1">
           <span><strong>Total HTVA:</strong></span>
-          <span>€50.00</span>
+          <span>€{{ shoppingCartStore.totalHTVA.toFixed(2) }}</span>
         </div>
         <div class="flex justify-between mb-1">
           <span><strong>Taxe (20%):</strong></span>
