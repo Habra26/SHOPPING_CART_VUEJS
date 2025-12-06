@@ -23,8 +23,16 @@ const updateItemQty = (id, qty) => {
   cart.splice(index, 1, updatedItem);
 };
 
+const deleteOneById = (id) => {
+  cart.splice(
+    cart.findIndex((item) => item.id === id),
+    1
+  );
+};
+
 export const shoppingCartStore = reactive({
   cart,
   addItemToCart,
   updateItemQty,
+  deleteOneById,
 });

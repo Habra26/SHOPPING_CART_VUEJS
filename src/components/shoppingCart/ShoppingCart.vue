@@ -19,7 +19,9 @@ import { shoppingCartStore } from "@/stores/shoppingCart";
           />
           <div>
             <span class="font-semibold">{{ item.name }}</span>
-            <span class="block text-sm text-gray-500">€{{ Number(item.price).toFixed(2) }}</span>
+            <span class="block text-sm text-gray-500"
+              >€{{ Number(item.price).toFixed(2) }}</span
+            >
           </div>
         </div>
         <div class="flex items-center">
@@ -27,9 +29,14 @@ import { shoppingCartStore } from "@/stores/shoppingCart";
             type="number"
             class="form-input mt-1 block w-16 text-center rounded text-gray-700 border-gray-300 border"
             :value="item.qty"
-            @input="shoppingCartStore.updateItemQty(item.id, $event.target.value)"
+            @input="
+              shoppingCartStore.updateItemQty(item.id, $event.target.value)
+            "
           />
-          <button class="ml-2 text-red-500 hover:text-red-700">
+          <button
+            class="ml-2 text-red-500 hover:text-red-700"
+            @click="shoppingCartStore.deleteOneById(item.id)"
+          >
             <i class="fas fa-times"></i>
           </button>
         </div>
