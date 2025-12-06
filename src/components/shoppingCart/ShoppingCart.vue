@@ -1,21 +1,25 @@
 <script setup>
-import { shoppingCartStore } from '@/stores/shoppingCart';
+import { shoppingCartStore } from "@/stores/shoppingCart";
 </script>
 
 <template>
   <h2 class="text-xl font-bold mb-4">Votre Panier</h2>
   <div class="cart bg-white rounded-lg shadow animate__animated">
     <ul class="divide-y divide-gray-200 space-y-4 p-6">
-      <li class="flex justify-between items-center py-3">
+      <li
+        class="flex justify-between items-center py-3"
+        v-for="item in shoppingCartStore.cart"
+        :key="item.id"
+      >
         <div class="flex items-center">
           <img
-            src="https://picsum.photos/300/200/?random=1"
-            alt="Product"
+            :src="item.image"
+            :alt="item.name"
             class="h-12 w-12 rounded-full mr-4"
           />
           <div>
-            <span class="font-semibold">Produit 1</span>
-            <span class="block text-sm text-gray-500">€50.00</span>
+            <span class="font-semibold">{{ item.name }}</span>
+            <span class="block text-sm text-gray-500">€{{ Number(item.price).toFixed(2) }}</span>
           </div>
         </div>
         <div class="flex items-center">
